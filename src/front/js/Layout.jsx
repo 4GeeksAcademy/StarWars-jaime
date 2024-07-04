@@ -31,7 +31,7 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<Error404/>} path="*" />
+                        <Route element={<Error404/>} path="/pages/Error404" />
                     </Routes>
                     <Footer />
                 </ScrollToTop>
