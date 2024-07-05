@@ -6,6 +6,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				{ title: "SECOND", background: "white", initial: "white"}],
 				tech: "Lenguajes",
 				path: "FullStack"
+				alert:{
+					visible: true,
+					back: "danger",
+					Text: "A simple primary alert check it out"
+				}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
