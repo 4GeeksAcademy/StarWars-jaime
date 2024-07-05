@@ -1,16 +1,19 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import injectContext from "./store/appContext.js";
+
 //import custom component
 import ScrollToTop from "./component/ScrollToTop.jsx";
 import { BackendURL } from "./component/BackendURL.jsx";
 import { Navbar } from "./component/Navbar.jsx";
 import { Footer } from "./component/Footer.jsx";
+
 // import custom pages
 import { Home } from "./pages/Home.jsx";
 import { Demo } from "./pages/Demo.jsx";
 import { Single } from "./pages/Single.jsx";
 import { Error404 } from "./pages/Error404.jsx";
+import { Jumbotron } from "./component/Jumbotron.jsx";
 
 
 //Create your first component
@@ -32,6 +35,7 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Error404/>} path="/pages/Error404" />
+                        <Route element={<Jumbotron/>} path="/component/Jumbotron"/>
                     </Routes>
                     <Footer />
                 </ScrollToTop>
