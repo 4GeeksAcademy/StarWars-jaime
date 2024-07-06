@@ -5,11 +5,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			demo: [ { title: "FIRST", background: "white", initial: "white"},
 				{ title: "SECOND", background: "white", initial: "white"}],
 				tech: "Lenguajes",
-				path: "FullStack"
+				path: "FullStack",
 				alert:{
 					visible: true,
 					back: "danger",
-					Text: "A simple primary alert check it out"
+					text: "A simple primary alert check it out"
 				}
 		},
 		actions: {
