@@ -2,33 +2,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
-			demo: [ { title: "FIRST", background: "white", initial: "white"},
-				{ title: "SECOND", background: "white", initial: "white"}],
-				tech: "Lenguajes",
-				path: "FullStack",
-				alert:{
-					visible: true,
-					back: "danger",
-					text: "A simple primary alert check it out"
-				}
+			demo: [{ title: "FIRST", background: "white", initial: "white" },
+			{ title: "SECOND", background: "white", initial: "white" }],
+			tech: "Lenguajes",
+			path: "FullStack",
+			alert: {
+				visible: true,
+				back: "danger",
+				text: "if you see this, run you fool!"
+			},
+			contacts: [],
+			currentContact: null
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
+			// Use getActions to call a function within a fuction () 
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
 
 			getMessage: async () => {
-				try{
+				try {
 					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
 					return data;
-				}catch(error){
-					console.log("Error loading message from backend", error)
-				}
+				} catch (error) {
+					console.log("Error loading message from backend", error);
+				};
 			},
 			changeColor: (index, color) => {
 				//get the store
@@ -43,7 +45,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
+			}, 										// terminas función y no olvides la puta "," o te cargas todo el codigo.
+			getUsers: async () => {
+				const url = "https://jsonplaceholder.typicode.com/users";
+				const options = {
+					method: "GET"
+				};
+				const response = await fetch(url, options);
+				if (!response.ok) {
+					console.log("Error:", response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				console.log(data);
+				setStore({ contacts: data });
+			},
+			getPosts: () => { },
+			setAlert: (newAlert) => {setStore({ alert: newAlert })},
+			setCurrentContact:  (contact) => {setStore({ currentContact: contact })}
 		}
 	};
 };

@@ -14,6 +14,10 @@ import { Demo } from "./pages/Demo.jsx";
 import { Single } from "./pages/Single.jsx";
 import { Error404 } from "./pages/Error404.jsx";
 import { Jumbotron } from "./component/Jumbotron.jsx";
+import { User } from "./pages/User.jsx";
+import { Alert } from "./component/Alert.jsx";
+import { ContacList } from "./pages/ContactList.jsx";
+import { ContactDetails } from "./pages/ContactDetails.jsx";
 
 
 //Create your first component
@@ -30,12 +34,16 @@ const Layout = () => {
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
+                    <Alert />
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<Error404/>} path="/pages/Error404" />
                         <Route element={<Jumbotron/>} path="/component/Jumbotron"/>
+                        <Route element={<User/>} path="/pages/User" />
+                        <Route element={<ContacList/>} path="/pages/ContactList" />
+                        <Route element={<ContactDetails/>} path="/pages/ContactDetails" />
+                        <Route element={<Error404/>} path="/pages/Error404" />
                     </Routes>
                     <Footer />
                 </ScrollToTop>

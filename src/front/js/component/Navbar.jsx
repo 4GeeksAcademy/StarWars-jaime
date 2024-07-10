@@ -17,6 +17,7 @@ export const Navbar = () => {
 									<Link to="/pages/User">
 										<button className="btn btn-outline-primary">User</button>
 									</Link>
+
 							</div>
 					</div>
 
