@@ -4,8 +4,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			message: null,
 			demo: [{ title: "FIRST", background: "white", initial: "white" },
 			{ title: "SECOND", background: "white", initial: "white" }],
-			tech: "Lenguajes",
+			tech: "Languajes",
 			path: "FullStack",
+			user: "alpha",
+			host: 'https://playground.4geeks.com/contact/doc',
 			alert: {
 				visible: true,
 				back: "danger",
@@ -57,8 +59,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return
 				}
 				const data = await response.json();
-				console.log(data);
+				console.log(data); //Imprimo en consola (Dev tools del navegador) el JSON qué me devuelve el fecth
 				setStore({ contacts: data });
+				localStorage.setItem("contacts",JSON.stringify(data));
+				localStorage.setItem("user", getStore().user)
 			},
 			getPosts: () => { },
 			setAlert: (newAlert) => {setStore({ alert: newAlert })},

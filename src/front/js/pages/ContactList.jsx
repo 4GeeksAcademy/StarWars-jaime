@@ -24,20 +24,33 @@ export const ContacList = () => {
         //tengo qué navegar al path "/pages/ContactDetails"
         navigate("/pages/ContactDetails");
     };
-    
+
+    const handleEdit = () => {
+
+    };
+
+    const handleDelete = () => {
+
+    }
 
     return (
         <div className="container text-start">
             <h1 className="text-center text-success">Consumiendo Apis con fetch {store.tech}</h1>
             <button className="btn btn-warning" onClick={handleAlert}>Alert</button>
-            <ul className="list-group">
+            <ul className="list-group-item">
                 {store.contacts.map((item) =>
                     <li key={"item.id"} className="list-group-item d-flex justify-content-between">
                         {item.name}
                         <div>
-                            <span className="text-primary me-2" onClick={() =>handleEye(item)}><i className="far fa-eye"></i></span>
-                            <span className="text-success me-2"><i className="far fa-edit"></i></span>
-                            <span className="text-danger"><i className="fas fa-trash"></i></span>
+                            <button  className="btn btn-secondary btn-sm" onClick={() =>handleEye(item)}>
+                                <i className="far fa-eye"></i>
+                                </button>
+                            <button className="btn btn-success btn-sm" onClick={() =>handleEdit(item)}>
+                                <i className="far fa-edit"></i>
+                                </button>
+                            <button className="btn btn-danger btn-sm" onClick={() =>handleDelete(item)}>
+                                <i className="fas fa-trash"></i>
+                            </button>
                         </div>
                     </li>
                 )}
