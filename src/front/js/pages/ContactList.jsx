@@ -27,11 +27,8 @@ export const ContacList = () => {
 
     const handleEdit = (addperson) => {
         console.log(addperson);
-        //necesito guardar los datos de person en una variable global
-        //parap oder leerlos en el componente ContactDetail
-        actions.setCurrentContact(person);
-        //tengo qué navegar al path "/pages/ContactDetails"
-        navigate("/pages/ContactDetails");   
+        actions.setCurrentContact(addperson);
+        navigate("/pages/ContactEdit");   
 
     };
 

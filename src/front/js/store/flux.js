@@ -102,10 +102,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.setItem("user", getStore().user)
 			},
 			getCharacters: async () => {
-
+				const url = `${process.env.WARS_URL}/api/people`;
+				const options = {
+					method: "GET"  //Al ser un get solamente, no necesitas de las "options"
+				};
+				const response = await fetch(url, options); // funcion "fetch" y dentro de sus parametros tampoco es necesario el "options" al ser un get.
+				if (!response.ok) {
+					console.log("Error:", response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				setStore({characters: data.results})
 			},
-			getCharacter: async () => {
-
+			getCharacter: async (uid) => {
+				const url = `${process.env.WARS_URL}/api/people/${uid}`;
+				const options = {
+					method: "GET"  //Al ser un get solamente, no necesitas de las "options"
+				};
+				const response = await fetch(url, options); // funcion "fetch" y dentro de sus parametros tampoco es necesario el "options" al ser un get.
+				if (!response.ok) {
+					console.log("Error:", response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				setStore({Currentcharacters: data.result}) //El "setStore" esu na funcion qué si no tienes declarada en "store" te la crea automaticamente.
 			},
 			getPlanets: async () => {
 

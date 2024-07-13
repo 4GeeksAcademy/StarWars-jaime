@@ -17,7 +17,7 @@ export const Footer = () => {
 
 
 	return(
-	<footer className="footer mt-auto py-3 text-center">
+	<footer className="footer mt-auto py-3 text-center bg-secondary">
 		<button className="btn btn-info" onClick={handleAlert}>msg</button>
 		<p>
 			Made with <i className="fa fa-heart text-danger" /> by{" "}
