@@ -2,8 +2,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
-			demo: [{ title: "FIRST", background: "white", initial: "white" },
-			{ title: "SECOND", background: "white", initial: "white" }],
 			tech: "Languajes",
 			path: "FullStack",
 			user: "alpha",
@@ -18,6 +16,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			addContact: [],
 			createAgenda: [],
 			slug:[],
+			contactid:[],
+			favorites: [],
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction () 
@@ -36,23 +37,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				};
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}, 										// terminas función y no olvides la puta "," o te cargas todo el codigo.
+			},// terminas función y no olvides la puta "," o te cargas todo el codigo.
 			editContact: async () => {
-				const url = `${process.env.BACKEND_URL}/agendas~/${slug}`;
+				const url = `${getStore().host}`;
 				const options = {
 					method: "POST"
 				};
@@ -100,7 +87,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.setItem("user", getStore().user)
 			},
 			createAgenda: async () => {
-				const url = `${getStore().host}agendas/${getStore().slug}`
+				const url = `${getStore().host}/agendas/${getStore().slug}`
 				const options = {
 					method: "POST"
 				};
@@ -123,9 +110,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getPlanets: async () => {
 
 			},
+			getPlanet: async () => {
+
+			},
 			getStarships: async () => {
 
-			}, 
+			},
+			getStarship: async () => {
+
+			},
+			addFavorite: (item) => {
+				setStore({ favorites: [...getStore().favorites, item]});
+			},
+			removeFavorite: () => {
+					// vamos a filtrar el array (.filter) y vamos a devolver lo qué es distinto
+			},
+						
 			getPosts: () => { },
 			setAlert: (newAlert) => {setStore({ alert: newAlert })},
 			setCurrentContact:  (contact) => {setStore({ currentContact: contact })}

@@ -10,8 +10,6 @@ import { Footer } from "./component/Footer.jsx";
 
 // import custom pages
 import { Home } from "./pages/Home.jsx";
-import { Demo } from "./pages/Demo.jsx";
-import { Single } from "./pages/Single.jsx";
 import { Error404 } from "./pages/Error404.jsx";
 import { Jumbotron } from "./component/Jumbotron.jsx";
 import { User } from "./pages/User.jsx";
@@ -37,8 +35,6 @@ const Layout = () => {
                     <Alert />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Jumbotron/>} path="/component/Jumbotron"/>
                         <Route element={<User/>} path="/pages/User" />
                         <Route element={<ContacList/>} path="/pages/ContactList" />
