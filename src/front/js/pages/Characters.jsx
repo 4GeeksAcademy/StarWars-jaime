@@ -1,26 +1,35 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext.js";
+import { useNavigate } from "react-router-dom";
 
 export const Characters = () => {
     const { store, actions } = useContext(Context)
-    const [characterList, setCharacterList] = useEffect()
+    const [characterList, setCharacterList] = useState([])
+    const navigate = useNavigate()
 
+
+    const dataControl = async() => { 
+        await actions.getCharacters()
+        setCharacterList(store.characters)
+    }
 
     useEffect(() => {
-         actions.getCharacters()
-         setCharacterList(store.characters)
+        dataControl()
     }, [])
 
+    const handleOnClick = async (id) => {
+        await actions.getCharacter(id)
+        navigate("/pages/Character");
+    }
 
     return (
         <div>
-           {characterList && characterList.map(() => (
+           {characterList && characterList.map((item, index) => (
                 <div class="card" style={{ width: "18rem" }}>    
-                    <img src="..." class="card-img-top" alt="..." />
+                    <img src={`https://starwars-visualguide.com/assets/img/characters/${item.uid}.jpg`} class="card-img-top" alt="..." />
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">{item.name}</h5>
+                        <button onClick={()=>handleOnClick(item.uid)} class="btn btn-primary">Go somewhere</button>
                     </div>
                 </div>
             ))} 
@@ -28,4 +37,4 @@ export const Characters = () => {
     );
 };
 
-{/*El stilo tiene qué ser declarado dentro de llaves por ser de javascript como objeto, para qué se renderice correctamente en un componente */}
+{/*En la linea 18: El estilo tiene qué ser declarado dentro de llaves por ser de javascript como objeto, para qué se renderice correctamente en un componente */}

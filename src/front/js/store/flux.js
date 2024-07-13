@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			path: "FullStack",
 			user: "alpha",
 			host: 'https://playground.4geeks.com/contact/',
+			starwarsHost: "https://www.swapi.tech/api/",
 			alert: {
 				visible: true,
 				back: "danger",
@@ -102,7 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.setItem("user", getStore().user)
 			},
 			getCharacters: async () => {
-				const url = `${process.env.WARS_URL}/api/people`;
+				const url = getStore().starwarsHost + "people";
 				const options = {
 					method: "GET"  //Al ser un get solamente, no necesitas de las "options"
 				};
@@ -112,10 +113,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return
 				}
 				const data = await response.json();
+				console.log(data.results);
 				setStore({characters: data.results})
 			},
 			getCharacter: async (uid) => {
-				const url = `${process.env.WARS_URL}/api/people/${uid}`;
+				const url = getStore().starwarsHost + "people/" + uid ;
 				const options = {
 					method: "GET"  //Al ser un get solamente, no necesitas de las "options"
 				};
@@ -125,19 +127,63 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return
 				}
 				const data = await response.json();
-				setStore({Currentcharacters: data.result}) //El "setStore" esu na funcion qué si no tienes declarada en "store" te la crea automaticamente.
+				setStore({Currentcharacter: data.result}) //El "setStore" esu na funcion qué si no tienes declarada en "store" te la crea automaticamente.
 			},
 			getPlanets: async () => {
-
+				const url = getStore().starwarsHost + "planets" ;
+				const options = {
+					method: "GET"  //Al ser un get solamente, no necesitas de las "options"
+				};
+				const response = await fetch(url, options); // funcion "fetch" y dentro de sus parametros tampoco es necesario el "options" al ser un get.
+				if (!response.ok) {
+					console.log("Error:", response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				console.log(data.results);
+				setStore({planets: data.results})
 			},
-			getPlanet: async () => {
-
+			getPlanet: async (uid) => {
+				const url = getStore().starwarsHost + "planets/" + uid ;
+				const options = {
+					method: "GET"  //Al ser un get solamente, no necesitas de las "options"
+				};
+				const response = await fetch(url, options); // funcion "fetch" y dentro de sus parametros tampoco es necesario el "options" al ser un get.
+				if (!response.ok) {
+					console.log("Error:", response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				console.log(data.results);
+				setStore({Currentplanet: data.result})
 			},
 			getStarships: async () => {
-
+				const url = getStore().starwarsHost + "starships" ;
+				const options = {
+					method: "GET"  //Al ser un get solamente, no necesitas de las "options"
+				};
+				const response = await fetch(url, options); // funcion "fetch" y dentro de sus parametros tampoco es necesario el "options" al ser un get.
+				if (!response.ok) {
+					console.log("Error:", response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				console.log(data.results);
+				setStore({starships: data.results})	
 			},
-			getStarship: async () => {
-
+			getStarship: async (uid) => {
+				const url = getStore().starwarsHost + "starships/" + uid ;
+				const options = {
+					method: "GET"  //Al ser un get solamente, no necesitas de las "options"
+				};
+				const response = await fetch(url, options); // funcion "fetch" y dentro de sus parametros tampoco es necesario el "options" al ser un get.
+				if (!response.ok) {
+					console.log("Error:", response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				console.log(data.results);
+				setStore({Currentstarship: data.result})
 			},
 			addFavorite: (item) => {
 				setStore({ favorites: [...getStore().favorites, item]});

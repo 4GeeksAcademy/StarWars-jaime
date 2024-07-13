@@ -17,7 +17,7 @@ import { Alert } from "./component/Alert.jsx";
 import { ContacList } from "./pages/ContactList.jsx";
 import { ContactDetails } from "./pages/ContactDetails.jsx";
 import { Characters } from "./pages/Characters.jsx";
-
+import { Character } from "./pages/Character.jsx";
 
 //Create your first component
 const Layout = () => {
@@ -42,6 +42,7 @@ const Layout = () => {
                         <Route element={<ContactDetails/>} path="/pages/ContactDetails" />
                         <Route element={<Error404/>} path="/pages/Error404" />
                         <Route element={<Characters/>} path="/pages/Characters" />
+                        <Route element={<Character/>} path="/pages/Character" />
                     </Routes>
                     <Footer />
                 </ScrollToTop>
