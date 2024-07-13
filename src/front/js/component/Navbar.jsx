@@ -11,7 +11,7 @@ export const Navbar = () => {
 					<div className="container">
 						<Link to="/" >
 							<img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Star_wars_logo_alternate.svg" 
-							alt="Logo" width="100" height="180" />
+							alt="Logo" style={{width:"100px", height:"180px"}} />
 						</Link>
 							<div className="">
 									<Link to="/pages/ContactList">

@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
 export const ContacList = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate ();
-    const handleAlert = () => {
+   {/* const handleAlert = () => {
         const dataToSend = {
             visible: true,
             back: "info",
             text: "what do you do whit the people!!"
         };
         actions.setAlert(dataToSend);
-    }
+    }*/}
 
     const handleEye = (person) => {
         console.log(person);
@@ -25,7 +25,13 @@ export const ContacList = () => {
         navigate("/pages/ContactDetails");
     };
 
-    const handleEdit = () => {
+    const handleEdit = (addperson) => {
+        console.log(addperson);
+        //necesito guardar los datos de person en una variable global
+        //parap oder leerlos en el componente ContactDetail
+        actions.setCurrentContact(person);
+        //tengo qué navegar al path "/pages/ContactDetails"
+        navigate("/pages/ContactDetails");   
 
     };
 
@@ -36,10 +42,10 @@ export const ContacList = () => {
     return (
         <div className="container text-start">
             <h1 className="text-center text-success">Consumiendo Apis con fetch {store.tech}</h1>
-            <button className="btn btn-warning" onClick={handleAlert}>Alert</button>
+            {/*<button className="btn btn-warning" onClick={handleAlert}>Alert</button>*/}
             <ul className="list-group-item">
                 {store.contacts.map((item) =>
-                    <li key={"item.id"} className="list-group-item d-flex justify-content-between">
+                    <li key={item.id} className="list-group-item d-flex justify-content-between">
                         {item.name}
                         <div>
                             <button  className="btn btn-secondary btn-sm" onClick={() =>handleEye(item)}>

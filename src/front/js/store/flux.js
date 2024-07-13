@@ -7,14 +7,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 			tech: "Languajes",
 			path: "FullStack",
 			user: "alpha",
-			host: 'https://playground.4geeks.com/contact/doc',
+			host: 'https://playground.4geeks.com/contact/',
 			alert: {
 				visible: true,
 				back: "danger",
 				text: "if you see this, run you fool!"
 			},
 			contacts: [],
-			currentContact: null
+			currentContact: null,
+			addContact: [],
+			createAgenda: [],
+			slug:[],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction () 
@@ -48,10 +51,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			}, 										// terminas función y no olvides la puta "," o te cargas todo el codigo.
-			getUsers: async () => {
-				const url = "https://jsonplaceholder.typicode.com/users";
+			editContact: async () => {
+				const url = `${process.env.BACKEND_URL}/agendas~/${slug}`;
 				const options = {
-					method: "GET"
+					method: "POST"
 				};
 				const response = await fetch(url, options);
 				if (!response.ok) {
@@ -64,6 +67,65 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.setItem("contacts",JSON.stringify(data));
 				localStorage.setItem("user", getStore().user)
 			},
+			addContact: async () => {
+				const url = "";
+				const options = {
+					method: "POST"
+				};
+				const response = await fetch(url, options);
+				if (!response.ok) {
+					console.log("Error:", response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				console.log(data); //Imprimo en consola (Dev tools del navegador) el JSON qué me devuelve el fecth
+				setStore({ contacts: data });
+				localStorage.setItem("contacts",JSON.stringify(data));
+				localStorage.setItem("user", getStore().user)
+			},
+			deleteContact: async () => {
+				const url = "";
+				const options = {
+					method: "DELETE"
+				};
+				const response = await fetch(url, options);
+				if (!response.ok) {
+					console.log("Error:", response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				console.log(data); //Imprimo en consola (Dev tools del navegador) el JSON qué me devuelve el fecth
+				setStore({ contacts: data });
+				localStorage.setItem("contacts",JSON.stringify(data));
+				localStorage.setItem("user", getStore().user)
+			},
+			createAgenda: async () => {
+				const url = `${getStore().host}agendas/${getStore().slug}`
+				const options = {
+					method: "POST"
+				};
+				const response = await response.json();
+				if (!response.ok) {
+					console.log("Error:", response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				setStore({contacts: data});
+				localStorage.setItem("contacts",JSON.stringify(data));
+				localStorage.setItem("user", getStore().user)
+			},
+			getCharacters: async () => {
+
+			},
+			getCharacter: async () => {
+
+			},
+			getPlanets: async () => {
+
+			},
+			getStarships: async () => {
+
+			}, 
 			getPosts: () => { },
 			setAlert: (newAlert) => {setStore({ alert: newAlert })},
 			setCurrentContact:  (contact) => {setStore({ currentContact: contact })}
