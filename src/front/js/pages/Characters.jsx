@@ -23,13 +23,14 @@ export const Characters = () => {
     }
 
     return (
-        <div>
+        <div className="container-fluid ">
            {characterList && characterList.map((item, index) => (
-                <div class="card" style={{ width: "18rem" }}>    
-                    <img src={`https://starwars-visualguide.com/assets/img/characters/${item.uid}.jpg`} class="card-img-top" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">{item.name}</h5>
-                        <button onClick={()=>handleOnClick(item.uid)} class="btn btn-primary">Go somewhere</button>
+                <div key={index} className="card text-center ms-lg-5 ms-md-4 me-sm-2" style={{ width: "18rem" }}>    
+                    <img src={`https://starwars-visualguide.com/assets/img/characters/${item.uid}.jpg`} className="card-img-top" alt="..." />
+                    <div className="card-body">
+                        <h5 className="card-title">{item.name}</h5>
+                        <button onClick={()=>handleOnClick(item.uid)} className="btn btn-primary">Go somewhere</button>
+                        
                     </div>
                 </div>
             ))} 

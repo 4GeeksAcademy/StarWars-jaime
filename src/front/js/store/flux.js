@@ -17,8 +17,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			addContact: [],
 			createAgenda: [],
 			slug:[],
-			contactid:[],
+			contactId:[],
 			favorites: [],
+
 
 		},
 		actions: {
@@ -40,9 +41,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 			},// terminas función y no olvides la puta "," o te cargas todo el codigo.
 			editContact: async () => {
-				const url = `${getStore().host}`;
+				const url = getStore().host + /"agendas"/ + {slug} + /"contacts"/ + {contactId} ;
 				const options = {
-					method: "POST"
+					method: "PUT"
 				};
 				const response = await fetch(url, options);
 				if (!response.ok) {
@@ -127,7 +128,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return
 				}
 				const data = await response.json();
-				setStore({Currentcharacter: data.result}) //El "setStore" esu na funcion qué si no tienes declarada en "store" te la crea automaticamente.
+				setStore({Currentcharacter: data.result}) //El "setStore" es una funcion qué si no tienes declarada en "store" te la crea automaticamente.
 			},
 			getPlanets: async () => {
 				const url = getStore().starwarsHost + "planets" ;

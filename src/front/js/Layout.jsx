@@ -18,6 +18,8 @@ import { ContacList } from "./pages/ContactList.jsx";
 import { ContactDetails } from "./pages/ContactDetails.jsx";
 import { Characters } from "./pages/Characters.jsx";
 import { Character } from "./pages/Character.jsx";
+import { Planets } from "./pages/Planets.jsx";
+
 
 //Create your first component
 const Layout = () => {
@@ -33,7 +35,7 @@ const Layout = () => {
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
-                    <Alert />
+                    {/* <Alert /> */}
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Jumbotron/>} path="/component/Jumbotron"/>
@@ -43,6 +45,7 @@ const Layout = () => {
                         <Route element={<Error404/>} path="/pages/Error404" />
                         <Route element={<Characters/>} path="/pages/Characters" />
                         <Route element={<Character/>} path="/pages/Character" />
+                        <Route element={<Planets/>} path="/pages/Planets" />
                     </Routes>
                     <Footer />
                 </ScrollToTop>
