@@ -100,14 +100,27 @@ class Medias(db.Model):
                 "post_id": self.post_id}
 
 
-"""class Characters(db.Model):
-    pass
-
+"""
+class Characters(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
 
 class CharacterDetails(db.Model):
-    pass
+    id = db.Column(db.Integer, primary_key=True)
 
 
-class planets(db.Model):
-    pass
+class Planets(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+
+class PlanetDetails(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+
+class Staships(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+
+classStashipDetalis(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
 """
