@@ -65,3 +65,14 @@ def hadle_characters():
         response_body['results'] = results
         response_body['message'] = "recibí el GET request"
         return response_body, 200
+
+
+@api.route('/users/<int:character_uid>', methods=['GET'])
+def handle_user(character_uid):
+    response_body = {}
+    if request.method == 'GET':
+        row = db.session.execute(db.select(CharacterDetails).where(CharacterDetails.id == chardetails_id)).scalar()
+        if not row:
+            response_body['results'] = {}
+            response_body['message'] = f'No existe el usuario {chardetails_id}'
+            return response_body, 404

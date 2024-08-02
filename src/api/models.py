@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
+#Instagram models
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -99,7 +100,7 @@ class Medias(db.Model):
                 "url": self.url,
                 "post_id": self.post_id}
 
-#Instagram models
+# Star wars Models
 
 class Characters(db.Model):
     __tablename__ = "characters"
@@ -114,6 +115,18 @@ class Characters(db.Model):
                 "name": self.name,
                 "details": [row.serialize() for row in self.character_to][0]}
 
+""" 
+    "height": "172",
+      "mass": "77",
+      "hair_color": "blond",
+      "skin_color": "fair",
+      "eye_color": "blue",
+      "birth_year": "19BBY",
+      "gender": "male",
+      "created": "2024-08-01T16:47:21.084Z",
+      "edited": "2024-08-01T16:47:21.084Z",
+      "name": "Luke Skywalker",
+"""
 
 class CharacterDetails(db.Model):
     __tablename__ = "character_details"
@@ -124,7 +137,8 @@ class CharacterDetails(db.Model):
     eye_color = db.Column(db.String, unique=False, nullable=False)
     hair_color = db.Column(db.String, unique=False, nullable=False)
     transport = db.Column(db.String, unique=False, nullable=False)
-    planet_origin = db.Column(db.String, unique=False, nullable=False)
+    planet_origin = db.Column(db.Integer, db.ForeignKey('planets.uid'))
+    planet_to = db.relationship('Planets', foreign_keys=[planet_origin], backref=db.backref('planet_to', lazy='select') )
     character_id = db.Column(db.Integer, db.ForeignKey('characters.uid'), unique=True)  # Unique, para definir una relación uno a uno.
     character_to = db.relationship('Characters', foreign_keys=[character_id], 
                                     backref=db.backref('character_to', lazy='select'))
@@ -137,7 +151,10 @@ class CharacterDetails(db.Model):
                 "name": self.name,
                 "height": self.height,
                 "gender": self.gender,
-                "hair_color": self.hair_color}
+                "hair_color": self.hair_color,
+                "eye_color": self.eye_color,
+                "transport": self.transport,
+                "planetOrigin": self.planet_origin}
 
 
 class Planets(db.Model):
@@ -152,17 +169,32 @@ class Planets(db.Model):
         return {"uid": self.uid,
                 "name": self.name,}
 
+"""
+    "diameter": "10200",
+      "rotation_period": "24",
+      "orbital_period": "4818",
+      "gravity": "1 standard",
+      "population": "1000",
+      "climate": "temperate, tropical",
+      "terrain": "jungle, rainforests",
+      "surface_water": "8",
+      "created": "2024-08-01T16:47:21.087Z",
+      "edited": "2024-08-01T16:47:21.087Z",
+      "name": "Yavin IV",
+"""
 
 class PlanetDetails(db.Model):
     __tablename__ = "planet_details"
     uid = db.Column(db.Integer, primary_key=True)
     planet_name = db.Column(db.Integer, unique=True, nullable=False)
-    planet_id = db.Column(db.Integer, unique=True, nullable=False)
     gravity = db.Column(db.String, unique=False, nullable=False)
     diameter = db.Column(db.String, unique=False, nullable=False)
     population = db.Column(db.String, unique=False, nullable=False)
     terrain = db.Column(db.String, unique=False, nullable=False)
     created = db.Column(db.String, unique=False, nullable=False)
+    planet_id = db.Column(db.Integer, db.ForeignKey('planets.uid'), unique=True)  
+    planet_to = db.relationship('planets', foreign_keys=[planet_id], 
+                                    backref=db.backref('planet_to', lazy='select'))
     
     def __repr__(self):
         return f'<Character {self.planet_name}>'
@@ -188,14 +220,38 @@ class Starships(db.Model):
 
     def serialize(self):
         return {"uid": self.uid,
-                "planet_name": self.planet_name,}
+                "name": self.name,}
 
+"""
+      "model": "DS-1 Orbital Battle Station",
+      "starship_class": "Deep Space Mobile Battlestation",
+      "manufacturer": "Imperial Department of Military Research, Sienar Fleet Systems",
+      "cost_in_credits": "1000000000000",
+      "length": "120000",
+      "crew": "342,953",
+      "passengers": "843,342",
+      "max_atmosphering_speed": "n/a",
+      "hyperdrive_rating": "4.0",
+      "MGLT": "10",
+      "cargo_capacity": "1000000000000",
+      "consumables": "3 years",
+      "pilots": [],
+      "created": "2020-09-17T17:55:06.604Z",
+      "edited": "2020-09-17T17:55:06.604Z",
+      "name": "Death Star", 
+"""
 
 class StarshipDetails(db.Model):
     __tablename__ = "starship_details"
     uid = db.Column(db.Integer, primary_key=True)
-    starship_id = db.Column(db.Integer, unique=True, nullable=False)
+    starship_class = db.Column(db.Integer, unique=True, nullable=False)
     model = db.Column(db.String, unique=False, nullable=False)
     cargo_capacity = db.Column(db.String, unique=False, nullable=False)
     cost = db.Column(db.String, unique=False, nullable=False)
     passengers = db.Column(db.String, unique=False, nullable=False)
+    length = db.Column(db.String, unique=False, nullable=False)
+    crew = db.Column(db.String, unique=False, nullable=False)
+    pilots = db.Column(db.String, unique=False, nullable=False)
+    starship_id = db.Column(db.Integer, db.ForeignKey('starships.uid'), unique=True)  
+    starship_to = db.relationship('starships', foreign_keys=[starship_id], 
+                                    backref=db.backref('starship_to', lazy='select'))
