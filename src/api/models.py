@@ -99,6 +99,7 @@ class Medias(db.Model):
                 "url": self.url,
                 "post_id": self.post_id}
 
+#Instagram models
 
 class Characters(db.Model):
     __tablename__ = "characters"
@@ -110,30 +111,33 @@ class Characters(db.Model):
 
     def serialize(self):
         return {"uid": self.uid,
-                "name": self.username}
+                "name": self.name,
+                "details": [row.serialize() for row in self.character_to][0]}
 
 
 class CharacterDetails(db.Model):
     __tablename__ = "character_details"
     uid = db.Column(db.Integer, primary_key=True)
-    character_id = db.Column(db.Integer, unique=True, nullable=False)
-    planet_origin = db.Column(db.String, unique=False, nullable=False)
     name = db.Column(db.String, unique=False, nullable=False)
     gender = db.Column(db.String, unique=False, nullable=False)
     height = db.Column(db.String, unique=False, nullable=False)
     eye_color = db.Column(db.String, unique=False, nullable=False)
     hair_color = db.Column(db.String, unique=False, nullable=False)
     transport = db.Column(db.String, unique=False, nullable=False)
+    planet_origin = db.Column(db.String, unique=False, nullable=False)
+    character_id = db.Column(db.Integer, db.ForeignKey('characters.uid'), unique=True)  # Unique, para definir una relación uno a uno.
+    character_to = db.relationship('Characters', foreign_keys=[character_id], 
+                                    backref=db.backref('character_to', lazy='select'))
 
     def __repr__(self):
         return f'<Character {self.name} - {self.planet_origin}>'
 
     def serialize(self):
-        return {"id": self.id,
-                "username": self.username,
-                "firstname": self.firstname,
-                "lastname": self.lastname,
-                "email": self.email}
+        return {"uid": self.uid,
+                "name": self.name,
+                "height": self.height,
+                "gender": self.gender,
+                "hair_color": self.hair_color}
 
 
 class Planets(db.Model):
@@ -141,22 +145,50 @@ class Planets(db.Model):
     uid = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True, nullable=False)
     
+    def __repr__(self):
+        return f'<Character {self.uid}>'
+
+    def serialize(self):
+        return {"uid": self.uid,
+                "name": self.name,}
+
 
 class PlanetDetails(db.Model):
     __tablename__ = "planet_details"
     uid = db.Column(db.Integer, primary_key=True)
+    planet_name = db.Column(db.Integer, unique=True, nullable=False)
     planet_id = db.Column(db.Integer, unique=True, nullable=False)
     gravity = db.Column(db.String, unique=False, nullable=False)
     diameter = db.Column(db.String, unique=False, nullable=False)
     population = db.Column(db.String, unique=False, nullable=False)
     terrain = db.Column(db.String, unique=False, nullable=False)
     created = db.Column(db.String, unique=False, nullable=False)
+    
+    def __repr__(self):
+        return f'<Character {self.planet_name}>'
+
+    def serialize(self):
+        return {"uid": self.uid,
+                "planet_name": self.planet_name,
+                "planet_id": self.firstname,
+                "gravity": self.gravity,
+                "diameter": self.diameter,
+                "population": self.population,
+                "terrain": self.terrain,
+                "created": self.created}
 
 
 class Starships(db.Model):
     __tablename__ = "starships"
     uid = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True, nullable=False)
+
+    def __repr__(self):
+        return f'<Character {self.name}>'
+
+    def serialize(self):
+        return {"uid": self.uid,
+                "planet_name": self.planet_name,}
 
 
 class StarshipDetails(db.Model):

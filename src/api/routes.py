@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
-from api.models import db, Users
+from api.models import db, Users, Characters
 
 
 api = Blueprint('api', __name__)
@@ -16,6 +16,7 @@ def handle_hello():
     response_body = {}
     response_body['message'] = "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
     return response_body, 200
+
 
 @api.route('/users', methods=['GET', 'POST'])
 def handle_users():
@@ -55,3 +56,12 @@ def handle_user(user_id):
         return response_body, 200
 
 
+@api.route('/characters', methods=['GET'])
+def hadle_characters():
+    response_body = {}
+    if request.method == 'GET':
+        rows = db.session.execute(db.select(Characters)).scalars()
+        results = [row.serialize() for row in rows]
+        response_body['results'] = results
+        response_body['message'] = "recibí el GET request"
+        return response_body, 200
