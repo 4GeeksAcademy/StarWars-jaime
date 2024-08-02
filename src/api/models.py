@@ -163,7 +163,7 @@ class Planets(db.Model):
     name = db.Column(db.String, unique=True, nullable=False)
     
     def __repr__(self):
-        return f'<Character {self.uid}>'
+        return f'<Planets {self.uid}>'
 
     def serialize(self):
         return {"uid": self.uid,
@@ -197,7 +197,7 @@ class PlanetDetails(db.Model):
                                     backref=db.backref('planet_to', lazy='select'))
     
     def __repr__(self):
-        return f'<Character {self.planet_name}>'
+        return f'<Planet {self.planet_name}>'
 
     def serialize(self):
         return {"uid": self.uid,
@@ -216,7 +216,7 @@ class Starships(db.Model):
     name = db.Column(db.String, unique=True, nullable=False)
 
     def __repr__(self):
-        return f'<Character {self.name}>'
+        return f'<Starships {self.name}>'
 
     def serialize(self):
         return {"uid": self.uid,
