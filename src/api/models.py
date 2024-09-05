@@ -85,7 +85,7 @@ class Comments(db.Model):
 
 class Medias(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    media_type = db.Column(db.Enum('video', 'image', 'sounds', name='media_type'), unique=True, nullable=False)
+    medias_type = db.Column(db.Enum('video', 'image', 'sounds', name='media_type'), unique=True, nullable=False)
     url = db.Column(db.String, unique= True, nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
     post_to = db.relationship('Posts', foreign_keys=[post_id], 
@@ -133,7 +133,7 @@ class CharacterDetails(db.Model):
     uid = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=False, nullable=False)
     gender = db.Column(db.String, unique=False, nullable=False)
-    height = db.Column(db.String, unique=False, nullable=False)
+    height = db.Column(db.Integer, unique=False, nullable=False)
     eye_color = db.Column(db.String, unique=False, nullable=False)
     hair_color = db.Column(db.String, unique=False, nullable=False)
     transport = db.Column(db.String, unique=False, nullable=False)
@@ -193,7 +193,7 @@ class PlanetDetails(db.Model):
     terrain = db.Column(db.String, unique=False, nullable=False)
     created = db.Column(db.String, unique=False, nullable=False)
     planet_id = db.Column(db.Integer, db.ForeignKey('planets.uid'), unique=True)  
-    planet_to = db.relationship('planets', foreign_keys=[planet_id], 
+    planet_to = db.relationship('Planets', foreign_keys=[planet_id], 
                                     backref=db.backref('planet_to', lazy='select'))
     
     def __repr__(self):
@@ -245,6 +245,7 @@ class StarshipDetails(db.Model):
     __tablename__ = "starship_details"
     uid = db.Column(db.Integer, primary_key=True)
     starship_class = db.Column(db.Integer, unique=True, nullable=False)
+    starship_name = db.Column(db.Integer, unique=True, nullable=False)
     model = db.Column(db.String, unique=False, nullable=False)
     cargo_capacity = db.Column(db.String, unique=False, nullable=False)
     cost = db.Column(db.String, unique=False, nullable=False)
@@ -255,3 +256,18 @@ class StarshipDetails(db.Model):
     starship_id = db.Column(db.Integer, db.ForeignKey('starships.uid'), unique=True)  
     starship_to = db.relationship('starships', foreign_keys=[starship_id], 
                                     backref=db.backref('starship_to', lazy='select'))
+
+    def __repr__(self):
+        return f'<Starship {self.starship_name}>'
+
+    def serialize(self):
+        return {"uid": self.uid,
+                "starship_name": self.planet_name,
+                "starship_id": self.firstname,
+                "model": self.model,
+                "starship_class": self.starship_class,
+                "cost": self.cost,
+                "cargo_capacity": self.cargo_capacity,
+                "passengers": self.passengers,
+                "length": self.length,
+                "crew": self.crew}

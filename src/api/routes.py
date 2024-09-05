@@ -55,9 +55,9 @@ def handle_user(user_id):
         response_body['message'] = f'recibí el DELETE request {user_id}'
         return response_body, 200
 
-
+# Endpoints del Starwars models
 @api.route('/characters', methods=['GET'])
-def hadle_characters():
+def handle_characters():
     response_body = {}
     if request.method == 'GET':
         rows = db.session.execute(db.select(Characters)).scalars()
@@ -68,11 +68,33 @@ def hadle_characters():
 
 
 @api.route('/users/<int:character_uid>', methods=['GET'])
-def handle_user(character_uid):
+def handle_character(character_uid):
     response_body = {}
     if request.method == 'GET':
         row = db.session.execute(db.select(CharacterDetails).where(CharacterDetails.id == chardetails_id)).scalar()
         if not row:
             response_body['results'] = {}
             response_body['message'] = f'No existe el usuario {chardetails_id}'
+            return response_body, 404
+
+
+@api.route('/planets', methods=['GET'])
+def handle_planets():
+    response_body = {}
+    if request.method == 'GET':
+        rows = db.session.execute(db.select(Characters)).scalars()
+        results = [row.serialize() for row in rows]
+        response_body['results'] = results
+        response_body['message'] = "recibí el GET request"
+        return response_body, 200
+
+
+@api.route('/users/<int:planet_uid>', methods=['GET'])
+def handle_planet(planet_uid):
+    response_body = {}
+    if request.method == 'GET':
+        row = db.session.execute(db.select(PlanetDetails).where(PlanetDetails.id == planetdetails_id)).scalar()
+        if not row:
+            response_body['results'] = {}
+            response_body['message'] = f'No existe el planeta {planetdetails_id}'
             return response_body, 404
